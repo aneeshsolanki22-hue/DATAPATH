@@ -1,0 +1,182 @@
+:root {
+  /* iOS Apple System Colors (Dark Mode Profile) */
+  --bg: #000000;
+  --text: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  
+  --accent: #007AFF;
+  --success: #30D158;
+  --warning: #FF9F0A;
+  --danger: #FF453A;
+
+  /* Liquid Glass Foundations */
+  --glass: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  
+  /* Safe Area Insets for iPhone Notch & Home Bar */
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+
+  /* Native Typography */
+  --font-apple: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+}
+
+/* ─────────────────────────────────────────────
+    P4.2 Global Styles
+   ───────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Remove ugly Android/Chrome tap highlight, native iOS doesn't have it */
+  -webkit-tap-highlight-color: transparent; 
+}
+
+body {
+  font-family: var(--font-apple);
+  color: var(--text);
+  background-color: var(--bg);
+  /* Deep radial gradient to give depth behind the glass */
+  background: radial-gradient(circle at 10% 10%, #1c1c1e 0%, var(--bg) 100%);
+  min-height: 100vh;
+  /* Prevent pull-to-refresh bounce in PWA */
+  overscroll-behavior-y: none;
+  padding-top: var(--safe-top);
+  /* Base bottom padding (overridden later if needed, but ensures safe space) */
+  padding-bottom: var(--safe-bottom);
+}
+
+/* Hide scrollbars completely to feel like a native app */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+/* ─────────────────────────────────────────────
+    P4.3 Reusable Components
+   ───────────────────────────────────────────── */
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.status-badge.learned { background: rgba(0, 122, 255, 0.15); color: var(--accent); }
+.status-badge.revision_due { background: rgba(255, 159, 10, 0.15); color: var(--warning); }
+.status-badge.re_revision_due { background: rgba(255, 69, 58, 0.15); color: var(--danger); }
+.status-badge.memorized { background: rgba(48, 209, 88, 0.15); color: var(--success); }
+
+/* Progress Bar */
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--success);
+  border-radius: 3px;
+  /* Smooth iOS progress fill animation */
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* iOS Button */
+.ios-button {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 16px;
+  padding: 14px 24px;
+  border-radius: 16px;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* Smooth scale on feedback */
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.ios-button:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.15);
+}
+.ios-button.primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+.ios-button.primary:active {
+  background: #005bb5;
+}
+
+/* ─────────────────────────────────────────────
+    P4.4 Animation Keyframes
+   ───────────────────────────────────────────── */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spring-bounce {
+  0% { transform: scale(0.95); opacity: 0; }
+  40% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Utility classes to easily apply these animations to React components */
+.animate-fade {
+  animation: fade-in 0.3s ease forwards;
+}
+
+.animate-slide {
+  /* Apple's standard spring-like easing for sliding panels */
+  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pop {
+  /* A nice bounce specifically for success checkmarks or new badge reveals */
+  animation: spring-bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+
