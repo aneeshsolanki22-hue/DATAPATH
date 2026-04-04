@@ -5,10 +5,10 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then((cache) => {
       // Very basic shell cache for aggressive offline capability
       return cache.addAll([
-        '/',
-        '/index.html',
-        '/manifest.json',
-        '/icons/app-icon.png'
+        './',
+        './index.html',
+        './manifest.json',
+        './icons/app-icon.png'
       ]);
     })
   );
