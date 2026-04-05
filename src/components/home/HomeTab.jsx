@@ -39,37 +39,83 @@ export default function HomeTab({ progress, onAdvance, courseData }) {
         </p>
       </div>
 
-      {/* ─── Stat Cards ─── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+    {/* ─── Stat Cards ─── */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        
         {/* Active Topics */}
-        <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <span style={{
-            font: "600 9px/1 'JetBrains Mono', monospace",
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            color: 'var(--text-secondary)'
-          }}>Active Topics</span>
-          <span style={{
-            font: "700 42px/1 system-ui, -apple-system, sans-serif",
-            letterSpacing: '-1px',
-            color: 'var(--amber)'
-          }}>{stats.touched}</span>
+        <div className="glass-card" style={{ 
+          padding: '20px', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '24px',
+          borderRadius: '24px',
+          alignItems: 'flex-start'
+        }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: '2px' }}>
+            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+            <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+          </svg>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <span style={{
+              font: "800 48px/1 system-ui, -apple-system, sans-serif",
+              letterSpacing: '-2px',
+              color: '#ffffff'
+            }}>{String(stats.touched).padStart(2, '0')}</span>
+            <span style={{
+              font: "600 10px/1 'JetBrains Mono', monospace",
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              color: 'var(--amber)'
+            }}>Active Topics</span>
+          </div>
         </div>
 
         {/* Mastered */}
-        <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <span style={{
-            font: "600 9px/1 'JetBrains Mono', monospace",
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            color: 'var(--text-secondary)'
-          }}>Mastered</span>
-          <span style={{
-            font: "700 42px/1 system-ui, -apple-system, sans-serif",
-            letterSpacing: '-1px',
-            color: 'var(--green)'
-          }}>{stats.memorized}</span>
+        <div className="glass-card" style={{ 
+          padding: '20px', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '24px',
+          borderRadius: '24px',
+          alignItems: 'stretch'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="var(--green)" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2l3.09 3.09L19.5 5.5l-.41 4.41L22 13l-3.09 3.09L19.5 20.5l-4.41-.41L12 22l-3.09-3.09L4.5 18.5l.41-4.41L3 11l3.09-3.09L4.5 3.5l4.41.41z"/>
+              <polyline stroke="#1e2226" strokeWidth="3.5" points="9 12 11 14 15 10"/>
+            </svg>
+            <div style={{ 
+              width: '28px', 
+              height: '4px', 
+              background: 'rgba(16, 185, 129, 0.2)', 
+              borderRadius: '99px',
+              marginTop: '10px'
+            }}>
+              <div style={{ 
+                width: `${courseData?.totalTopics ? Math.min(100, (stats.memorized / courseData.totalTopics) * 100) : 0}%`, 
+                height: '100%', 
+                background: 'var(--green)', 
+                borderRadius: '99px' 
+              }} />
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <span style={{
+              font: "800 48px/1 system-ui, -apple-system, sans-serif",
+              letterSpacing: '-2px',
+              color: 'var(--green)'
+            }}>{String(stats.memorized).padStart(2, '0')}</span>
+            <span style={{
+              font: "600 10px/1 'JetBrains Mono', monospace",
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              color: 'var(--amber)'
+            }}>Mastered</span>
+          </div>
         </div>
+
       </div>
 
       {/* ─── Today's Plan ─── */}
