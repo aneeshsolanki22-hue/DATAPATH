@@ -445,10 +445,18 @@ body {
 
 /* Glass Navigation (Level 1) */
 .glass-nav {
-  background: rgba(10, 10, 12, 0.85);
+  background: rgba(10, 10, 12, 0.40);
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.nav-tab {
+  border-radius: 16px;
+  margin: 0px 4px;
 }
 
 /* Glass Nested (Level 3 — cards inside cards) */

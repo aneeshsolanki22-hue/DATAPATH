@@ -35,14 +35,14 @@ export default function TabBar({ activeTab, setActiveTab }) {
   return (
     <div className="glass-nav" style={{
       position: 'fixed',
-      bottom: 0,
+      bottom: 'max(env(safe-area-inset-bottom, 16px), 16px)',
       left: '50%',
       transform: 'translateX(-50%)',
-      width: '100%',
-      maxWidth: '430px',
+      width: 'calc(100% - 32px)',
+      maxWidth: '398px',
       display: 'flex',
       zIndex: 100,
-      paddingBottom: 'env(safe-area-inset-bottom, 0px)'
+      padding: '2px 0'
     }}>
       {tabs.map(tab => {
         const isActive = activeTab === tab.id
@@ -51,7 +51,7 @@ export default function TabBar({ activeTab, setActiveTab }) {
             key={tab.id}
             id={`tab-${tab.id}`}
             onClick={() => setActiveTab(tab.id)}
-            className="tappable"
+            className="tappable nav-tab"
             style={{
               flex: 1,
               padding: '10px 0 8px',
@@ -98,6 +98,6 @@ export default function TabBar({ activeTab, setActiveTab }) {
           </button>
         )
       })}
-    </div>
+      </div>
   )
 }
