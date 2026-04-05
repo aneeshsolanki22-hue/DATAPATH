@@ -47,8 +47,8 @@ export default function HomeTab({ progress, onAdvance, courseData }) {
             color: 'var(--text-secondary)'
           }}>Active Topics</span>
           <span style={{
-            font: "800 46px/0.88 'Syne', sans-serif",
-            letterSpacing: '-2px',
+            font: "700 42px/1 system-ui, -apple-system, sans-serif",
+            letterSpacing: '-1px',
             color: 'var(--amber)'
           }}>{stats.touched}</span>
         </div>
@@ -62,8 +62,8 @@ export default function HomeTab({ progress, onAdvance, courseData }) {
             color: 'var(--text-secondary)'
           }}>Mastered</span>
           <span style={{
-            font: "800 46px/0.88 'Syne', sans-serif",
-            letterSpacing: '-2px',
+            font: "700 42px/1 system-ui, -apple-system, sans-serif",
+            letterSpacing: '-1px',
             color: 'var(--green)'
           }}>{stats.memorized}</span>
         </div>

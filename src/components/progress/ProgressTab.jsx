@@ -164,10 +164,10 @@ export default function ProgressTab({ progress, courseData }) {
             color: 'var(--text-secondary)'
           }}>Touched</span>
           <span style={{
-            font: "800 46px/0.88 'Syne', sans-serif",
-            letterSpacing: '-2px',
+            font: "700 42px/1 system-ui, -apple-system, sans-serif",
+            letterSpacing: '-1px',
             color: 'var(--amber)'
-          }}>{stats.touchedPct}<span style={{ fontSize: '20px', letterSpacing: '0' }}>%</span></span>
+          }}>{stats.touchedPct}<span style={{ fontSize: '20px', letterSpacing: '0', fontWeight: '600' }}>%</span></span>
         </div>
         <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <span style={{
@@ -177,10 +177,10 @@ export default function ProgressTab({ progress, courseData }) {
             color: 'var(--text-secondary)'
           }}>Mastered</span>
           <span style={{
-            font: "800 46px/0.88 'Syne', sans-serif",
-            letterSpacing: '-2px',
+            font: "700 42px/1 system-ui, -apple-system, sans-serif",
+            letterSpacing: '-1px',
             color: 'var(--green)'
-          }}>{stats.memorizedPct}<span style={{ fontSize: '20px', letterSpacing: '0' }}>%</span></span>
+          }}>{stats.memorizedPct}<span style={{ fontSize: '20px', letterSpacing: '0', fontWeight: '600' }}>%</span></span>
         </div>
       </div>
 
