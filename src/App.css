@@ -5,8 +5,8 @@
 /* ─── SECTION 1: COLOR SYSTEM ─── */
 :root {
   /* Background Stack (darkest → lightest) */
-  --bg-void: #060606;
-  --bg-base: #0a0a0a;
+  --bg-void: #0f0f11;
+  --bg-base: #141416;
   --bg-raised: #141414;
   --bg-elevated: #1c1c1e;
   --bg-float: #242426;
