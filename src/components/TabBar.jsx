@@ -25,11 +25,13 @@ const ProgressIcon = ({ active, animating }) => (
 
 export default function TabBar({ activeTab, setActiveTab }) {
   const [animatingTab, setAnimatingTab] = React.useState(null)
+  const timerRef = React.useRef(null)
 
   const handleTabClick = (id) => {
     setActiveTab(id)
     setAnimatingTab(id)
-    setTimeout(() => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
       setAnimatingTab(null)
     }, 1100)
   }

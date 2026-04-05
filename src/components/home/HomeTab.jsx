@@ -4,6 +4,7 @@ import { getOverallStats, getTodaysTasks, formatTodayFull } from '../../utils/ru
 export default function HomeTab({ progress, onAdvance, courseData }) {
   const stats = getOverallStats(progress, courseData)
   const todaysTasks = getTodaysTasks(progress, courseData)
+  const totalTopics = courseData.reduce((acc, section) => acc + (section.topics?.length || 0), 0)
 
   const revisionTasks = todaysTasks.filter(t => t.type === 'revision')
   const reRevisionTasks = todaysTasks.filter(t => t.type === 're_revision')
@@ -94,7 +95,7 @@ export default function HomeTab({ progress, onAdvance, courseData }) {
               marginTop: '10px'
             }}>
               <div style={{ 
-                width: `${courseData?.totalTopics ? Math.min(100, (stats.memorized / courseData.totalTopics) * 100) : 0}%`, 
+                width: `${totalTopics ? Math.min(100, (stats.memorized / totalTopics) * 100) : 0}%`, 
                 height: '100%', 
                 background: 'var(--green)', 
                 borderRadius: '99px' 

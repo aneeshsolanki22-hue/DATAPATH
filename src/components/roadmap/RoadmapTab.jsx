@@ -44,6 +44,30 @@ export default function RoadmapTab({ progress, onAdvance, courseData }) {
     })
   })
 
+  let foundActive = false
+  const sectionsWithStatus = courseData.map((section) => {
+    let memorizedCount = 0
+    let startedCount = 0
+    const today = todayStr()
+    
+    section.topics.forEach(t => {
+      if (progress[t.id] && progress[t.id].learnedDate) startedCount++
+      if (getTopicStatus(progress[t.id], today) === 'memorized') memorizedCount++
+    })
+    
+    const isComplete = section.topics.length > 0 && memorizedCount === section.topics.length
+    
+    let timelineStatus = 'locked'
+    if (isComplete) {
+      timelineStatus = 'completed'
+    } else if (startedCount > 0 || !foundActive) {
+      timelineStatus = 'active'
+      foundActive = true
+    }
+
+    return { ...section, timelineStatus }
+  })
+
   return (
     <div className="animate-fade" style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
       
@@ -65,12 +89,20 @@ export default function RoadmapTab({ progress, onAdvance, courseData }) {
         </div>
       </div>
 
-      {/* ─── Section Accordions ─── */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        {courseData.map(section => (
+      {/* ─── Section Accordions Timeline ─── */}
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '24px', 
+        paddingLeft: '44px', // Space allocated for the glowing timeline
+        marginTop: '10px'
+      }}>
+        {sectionsWithStatus.map((section, index) => (
           <SectionCard 
             key={section.id} 
             section={section} 
+            timelineStatus={section.timelineStatus}
+            isLast={index === sectionsWithStatus.length - 1}
             progress={progress} 
             onAdvance={onAdvance} 
           />
@@ -106,7 +138,7 @@ function StatChip({ label, highlight }) {
 }
 
 /* ─── Section Card (Level 2 Glass + Expandable) ─── */
-function SectionCard({ section, progress, onAdvance }) {
+function SectionCard({ section, progress, onAdvance, timelineStatus, isLast }) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const total = section.topics.length
@@ -121,21 +153,81 @@ function SectionCard({ section, progress, onAdvance }) {
   const percent = total === 0 ? 0 : Math.round((memorizedCount / total) * 100)
   const isComplete = percent === 100
 
+  // Timeline Styling Config
+  const timelineConfig = {
+    completed: { color: 'var(--green)', glow: 'rgba(16, 185, 129, 0.4)' },
+    active: { color: 'var(--amber)', glow: 'rgba(245, 158, 11, 0.4)' },
+    locked: { color: 'rgba(255,255,255,0.06)', glow: 'transparent', outline: 'rgba(255,255,255,0.15)' }
+  }
+  const tConfig = timelineConfig[timelineStatus]
+
   return (
-    <div style={{
-      position: 'relative',
-      background: isExpanded ? 'rgba(245,158,11,0.05)' : 'rgba(20, 20, 22, 0.72)',
-      backdropFilter: 'blur(24px) saturate(180%)',
-      WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-      borderRadius: '20px',
-      border: `1px solid ${isExpanded ? 'rgba(245,158,11,0.25)' : 'rgba(255,255,255,0.07)'}`,
-      borderTopColor: isExpanded ? 'rgba(245,158,11,0.32)' : 'rgba(255,255,255,0.11)',
-      boxShadow: isExpanded 
-        ? 'inset 0 1px 0 rgba(245,158,11,0.08), 0 4px 24px rgba(245,158,11,0.10)'
-        : 'inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.36), 0 2px 8px rgba(0,0,0,0.24)',
-      overflow: 'hidden',
-      transition: 'all 280ms cubic-bezier(0.4, 0, 0.2, 1)'
-    }}>
+    <div style={{ position: 'relative' }}>
+      {/* ─── Floating Timeline Node ─── */}
+      <div style={{
+        position: 'absolute',
+        left: '-44px',
+        top: '20px',
+        width: '32px',
+        height: '32px',
+        borderRadius: '50%',
+        background: tConfig.color,
+        border: tConfig.outline ? `1px solid ${tConfig.outline}` : 'none',
+        boxShadow: `0 0 16px ${tConfig.glow}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 2
+      }}>
+        {timelineStatus === 'completed' && (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#121212" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        )}
+        {timelineStatus === 'active' && (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#121212" stroke="#121212" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
+        )}
+        {timelineStatus === 'locked' && (
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        )}
+      </div>
+
+      {/* ─── Timeline Vertical Path ─── */}
+      {!isLast && (
+        <div style={{
+          position: 'absolute',
+          left: '-29px',
+          top: '52px',
+          bottom: '-44px',
+          width: '2px',
+          background: timelineStatus === 'completed' 
+            ? 'linear-gradient(to bottom, var(--green) 0%, rgba(245,158,11,0.5) 100%)' 
+            : timelineStatus === 'active' 
+              ? 'linear-gradient(to bottom, rgba(245,158,11,0.5) 0%, rgba(255,255,255,0.05) 100%)'
+              : 'rgba(255,255,255,0.05)',
+          zIndex: 1
+        }} />
+      )}
+
+      {/* ─── Card Container ─── */}
+      <div style={{
+        background: isExpanded ? 'rgba(245,158,11,0.05)' : 'rgba(20, 20, 22, 0.72)',
+        backdropFilter: 'blur(24px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+        borderRadius: '20px',
+        border: `1px solid ${isExpanded ? 'rgba(245,158,11,0.25)' : 'rgba(255,255,255,0.07)'}`,
+        borderTopColor: isExpanded ? 'rgba(245,158,11,0.32)' : 'rgba(255,255,255,0.11)',
+        boxShadow: isExpanded 
+          ? 'inset 0 1px 0 rgba(245,158,11,0.08), 0 4px 24px rgba(245,158,11,0.10)'
+          : 'inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.36), 0 2px 8px rgba(0,0,0,0.24)',
+        overflow: 'hidden',
+        transition: 'all 280ms cubic-bezier(0.4, 0, 0.2, 1)'
+      }}>
 
       {/* Header (Clickable) */}
       <div 
@@ -235,6 +327,7 @@ function SectionCard({ section, progress, onAdvance }) {
           ))}
         </div>
       )}
+      </div>
     </div>
   )
 }
