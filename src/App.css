@@ -703,7 +703,7 @@ body {
 .draw-icon line {
   stroke-dasharray: var(--len);
   stroke-dashoffset: var(--len);
-  animation: drawLine 1s cubic-bezier(0.22, 0.68, 0, 1) forwards;
+  animation: drawLine 0.8s ease-in-out forwards;
 }
 
 @keyframes drawLine {

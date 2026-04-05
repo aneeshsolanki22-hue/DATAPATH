@@ -1,7 +1,7 @@
 import React from 'react'
 import { getOverallStats, getTodaysTasks, formatTodayFull } from '../../utils/ruleSystem'
 
-export default function HomeTab({ progress, onAdvance, courseData }) {
+export default function HomeTab({ progress, onAdvance, courseData, setActiveTab }) {
   const stats = getOverallStats(progress, courseData)
   const todaysTasks = getTodaysTasks(progress, courseData)
   const totalTopics = courseData.reduce((acc, section) => acc + (section.topics?.length || 0), 0)
@@ -145,6 +145,25 @@ export default function HomeTab({ progress, onAdvance, courseData }) {
             }}>
               No revisions due today. Keep it up.
             </p>
+            <button
+              className="tappable"
+              onClick={() => setActiveTab('roadmap')}
+              style={{
+                background: 'var(--amber)',
+                color: '#000000',
+                font: "600 13px/1 'JetBrains Mono', monospace",
+                letterSpacing: '0.3px',
+                padding: '14px 20px',
+                borderRadius: '14px',
+                border: 'none',
+                width: '100%',
+                marginTop: '24px',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 16px rgba(245,158,11,0.30)',
+                cursor: 'pointer'
+              }}
+            >
+              Explore new topic ✦
+            </button>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

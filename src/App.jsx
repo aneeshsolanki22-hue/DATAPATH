@@ -26,13 +26,13 @@ export default function App() {
   const renderTab = () => {
     switch (activeTab) {
       case 'home': 
-        return <HomeTab progress={progress} onAdvance={handleAdvanceTopic} courseData={courseData} />
+        return <HomeTab progress={progress} onAdvance={handleAdvanceTopic} courseData={courseData} setActiveTab={setActiveTab} />
       case 'roadmap': 
         return <RoadmapTab progress={progress} onAdvance={handleAdvanceTopic} courseData={courseData} />
       case 'progress': 
         return <ProgressTab progress={progress} courseData={courseData} />
       default: 
-        return <HomeTab progress={progress} onAdvance={handleAdvanceTopic} courseData={courseData} />
+        return <HomeTab progress={progress} onAdvance={handleAdvanceTopic} courseData={courseData} setActiveTab={setActiveTab} />
     }
   }
 

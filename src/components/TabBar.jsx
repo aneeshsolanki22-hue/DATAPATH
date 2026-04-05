@@ -2,15 +2,15 @@ import React from 'react'
 
 const HomeIcon = ({ active, animating }) => (
   <svg className={animating ? 'draw-icon' : ''} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#F59E0B' : '#8E8E93'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path style={{ '--len': 58 }} d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-    <polyline style={{ '--len': 29 }} points="9 22 9 12 15 12 15 22" />
+    <path style={{ '--len': 72 }} d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+    <polyline style={{ '--len': 30 }} points="9 22 9 12 15 12 15 22" />
   </svg>
 )
 
 const RoadmapIcon = ({ active, animating }) => (
   <svg className={animating ? 'draw-icon' : ''} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#F59E0B' : '#8E8E93'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path style={{ '--len': 21 }} d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-    <path style={{ '--len': 68 }} d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+    <path style={{ '--len': 20 }} d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+    <path style={{ '--len': 75 }} d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
     <line style={{ '--len': 10 }} x1="8" y1="7" x2="16" y2="7" />
     <line style={{ '--len': 8 }} x1="8" y1="11" x2="13" y2="11" />
   </svg>
@@ -18,8 +18,8 @@ const RoadmapIcon = ({ active, animating }) => (
 
 const ProgressIcon = ({ active, animating }) => (
   <svg className={animating ? 'draw-icon' : ''} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#F59E0B' : '#8E8E93'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline style={{ '--len': 35 }} points="1 18 8.5 10.5 13.5 15.5 23 6" />
-    <polyline style={{ '--len': 15 }} points="17 6 23 6 23 12" />
+    <polyline style={{ '--len': 36 }} points="1 18 8.5 10.5 13.5 15.5 23 6" />
+    <polyline style={{ '--len': 16 }} points="17 6 23 6 23 12" />
   </svg>
 )
 
