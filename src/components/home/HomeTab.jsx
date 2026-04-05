@@ -16,10 +16,13 @@ export default function HomeTab({ progress, onAdvance, courseData }) {
         <h1 style={{
           font: "800 28px/1.1 'Syne', sans-serif",
           letterSpacing: '-1px',
-          color: 'var(--text-primary)',
-          marginBottom: '8px'
+          marginBottom: '8px',
+          display: 'flex',
+          alignItems: 'baseline',
+          gap: '8px'
         }}>
-          Hello, <span style={{ color: 'var(--amber)' }}>TOUKIR</span>{' '}
+          <span style={{ fontSize: '20px', fontWeight: '600', color: 'var(--text-secondary)' }}>Hello,</span> 
+          <span style={{ color: 'var(--amber)' }}>TOUKIR</span>
           <span style={{ 
             display: 'inline-block', 
             animation: 'floatBounce 2s ease-in-out infinite',
