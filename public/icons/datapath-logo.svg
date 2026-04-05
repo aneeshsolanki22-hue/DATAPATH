@@ -1,0 +1,78 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#007AFF"/>
+      <stop offset="100%" stop-color="#5E5CE6"/>
+    </linearGradient>
+    <linearGradient id="shimmer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+      <stop offset="40%" stop-color="rgba(255,255,255,0.05)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <filter id="glow-blue">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-green">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="icon-clip">
+      <rect x="0" y="0" width="512" height="512" rx="114"/>
+    </clipPath>
+  </defs>
+
+  <!-- Pure black background -->
+  <rect x="0" y="0" width="512" height="512" rx="114" fill="#000000"/>
+
+  <g clip-path="url(#icon-clip)">
+    <!-- Ambient glow orbs -->
+    <ellipse cx="185" cy="210" rx="160" ry="130" fill="#007AFF" fill-opacity="0.16"/>
+    <ellipse cx="360" cy="370" rx="130" ry="100" fill="#5E5CE6" fill-opacity="0.13"/>
+    <ellipse cx="256" cy="160" rx="90" ry="60" fill="#30D158" fill-opacity="0.10"/>
+
+    <!-- Edges -->
+    <path d="M164 198 L248 253" stroke="url(#accent-grad)" stroke-width="3" fill="none" stroke-opacity="0.75" stroke-linecap="round"/>
+    <path d="M264 253 L330 198" stroke="url(#accent-grad)" stroke-width="3" fill="none" stroke-opacity="0.75" stroke-linecap="round"/>
+    <path d="M148 198 L148 315" stroke="#5E5CE6" stroke-width="2.5" fill="none" stroke-opacity="0.55" stroke-linecap="round"/>
+    <path d="M346 198 L346 315" stroke="#5E5CE6" stroke-width="2.5" fill="none" stroke-opacity="0.55" stroke-linecap="round"/>
+    <path d="M163 328 L230 368" stroke="#30D158" stroke-width="2.5" fill="none" stroke-opacity="0.60" stroke-linecap="round"/>
+    <path d="M332 328 L278 368" stroke="#30D158" stroke-width="2.5" fill="none" stroke-opacity="0.60" stroke-linecap="round"/>
+    <path d="M248 272 L163 308" stroke="rgba(255,255,255,0.20)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M260 272 L332 308" stroke="rgba(255,255,255,0.20)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+    <!-- node1: top-left — blue -->
+    <circle cx="148" cy="190" r="26" fill="#007AFF" fill-opacity="0.18" stroke="#007AFF" stroke-width="1.8"/>
+    <circle cx="148" cy="190" r="13" fill="#007AFF" filter="url(#glow-blue)"/>
+
+    <!-- node2: center hub -->
+    <circle cx="256" cy="260" r="36" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.22)" stroke-width="1.8"/>
+    <circle cx="256" cy="260" r="20" fill="url(#accent-grad)" filter="url(#glow-blue)"/>
+    <circle cx="256" cy="260" r="8" fill="white" fill-opacity="0.92"/>
+
+    <!-- node3: top-right — purple -->
+    <circle cx="346" cy="190" r="26" fill="#5E5CE6" fill-opacity="0.18" stroke="#5E5CE6" stroke-width="1.8"/>
+    <circle cx="346" cy="190" r="13" fill="#5E5CE6" filter="url(#glow-blue)"/>
+
+    <!-- node4: bottom-left — green -->
+    <circle cx="148" cy="320" r="20" fill="#30D158" fill-opacity="0.18" stroke="#30D158" stroke-width="1.8"/>
+    <circle cx="148" cy="320" r="10" fill="#30D158" filter="url(#glow-green)"/>
+
+    <!-- node5: bottom-right — green -->
+    <circle cx="346" cy="320" r="20" fill="#30D158" fill-opacity="0.18" stroke="#30D158" stroke-width="1.8"/>
+    <circle cx="346" cy="320" r="10" fill="#30D158" filter="url(#glow-green)"/>
+
+    <!-- node-bottom-center — amber -->
+    <circle cx="256" cy="376" r="15" fill="#FF9F0A" fill-opacity="0.22" stroke="#FF9F0A" stroke-width="1.8"/>
+    <circle cx="256" cy="376" r="7.5" fill="#FF9F0A"/>
+
+    <!-- Glass top sheen -->
+    <rect x="0" y="0" width="512" height="256" rx="114" fill="url(#shimmer)"/>
+    <!-- Specular line -->
+    <path d="M60 52 Q256 36 452 52" stroke="rgba(255,255,255,0.18)" stroke-width="1" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Rim -->
+  <rect x="0" y="0" width="512" height="512" rx="114" fill="none" stroke="rgba(255,255,255,0.20)" stroke-width="2"/>
+  <rect x="2" y="2" width="508" height="508" rx="112" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+</svg>

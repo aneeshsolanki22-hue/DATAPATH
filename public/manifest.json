@@ -4,13 +4,13 @@
   "description": "a personal data analyst roadmap",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#007AFF",
+  "background_color": "#0f0f11",
+  "theme_color": "#F59E0B",
   "icons": [
     {
-      "src": "./icons/app-icon.png",
-      "sizes": "1024x1024",
-      "type": "image/png",
+      "src": "./icons/datapath-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ]
