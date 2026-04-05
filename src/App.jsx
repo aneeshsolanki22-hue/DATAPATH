@@ -32,7 +32,7 @@ export default function App() {
       case 'progress': 
         return <ProgressTab progress={progress} courseData={courseData} />
       default: 
-        return <HomeTab />
+        return <HomeTab progress={progress} onAdvance={handleAdvanceTopic} courseData={courseData} />
     }
   }
 
