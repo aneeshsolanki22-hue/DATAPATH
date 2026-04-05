@@ -2,7 +2,6 @@ import React from 'react'
 import { getOverallStats, getTodaysTasks, formatTodayFull } from '../../utils/ruleSystem'
 
 export default function HomeTab({ progress, onAdvance, courseData }) {
-  // Compute data based on current state
   const stats = getOverallStats(progress, courseData)
   const todaysTasks = getTodaysTasks(progress, courseData)
 
@@ -10,64 +9,131 @@ export default function HomeTab({ progress, onAdvance, courseData }) {
   const reRevisionTasks = todaysTasks.filter(t => t.type === 're_revision')
 
   return (
-    <div className="animate-fade" style={{ padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
+    <div className="animate-fade" style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', gap: '28px' }}>
       
-      {/* 6.2 Header */}
+      {/* ─── Header ─── */}
       <div style={{ marginTop: '10px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: 800, marginBottom: '6px', letterSpacing: '-0.5px' }}>
-          Hello, TOUKIR <span style={{ display: 'inline-block', animation: 'spring-bounce 2s infinite alternate' }}>👋</span>
+        <h1 style={{
+          font: "800 28px/1.1 'Syne', sans-serif",
+          letterSpacing: '-1px',
+          color: 'var(--text-primary)',
+          marginBottom: '8px'
+        }}>
+          Hello, <span style={{ color: 'var(--amber)' }}>TOUKIR</span>{' '}
+          <span style={{ 
+            display: 'inline-block', 
+            animation: 'floatBounce 2s ease-in-out infinite',
+            fontSize: '28px'
+          }}>👋</span>
         </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '15px', fontWeight: 500, letterSpacing: '0.3px' }}>
+        <p style={{
+          font: "400 10px/1.6 'JetBrains Mono', monospace",
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          color: 'var(--text-secondary)'
+        }}>
           {formatTodayFull()}
         </p>
       </div>
 
-      {/* 6.3 Stat cards row */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        <div className="glass-card" style={{ padding: '18px 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <span style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Active Topics</span>
-          <span style={{ fontSize: '36px', fontWeight: 800, color: 'var(--accent)' }}>{stats.touched}</span>
+      {/* ─── Stat Cards ─── */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+        {/* Active Topics */}
+        <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <span style={{
+            font: "600 9px/1 'JetBrains Mono', monospace",
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            color: 'var(--text-secondary)'
+          }}>Active Topics</span>
+          <span style={{
+            font: "800 46px/0.88 'Syne', sans-serif",
+            letterSpacing: '-2px',
+            color: 'var(--amber)'
+          }}>{stats.touched}</span>
         </div>
-        <div className="glass-card" style={{ padding: '18px 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <span style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Mastered</span>
-          <span style={{ fontSize: '36px', fontWeight: 800, color: 'var(--success)' }}>{stats.memorized}</span>
+
+        {/* Mastered */}
+        <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <span style={{
+            font: "600 9px/1 'JetBrains Mono', monospace",
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            color: 'var(--text-secondary)'
+          }}>Mastered</span>
+          <span style={{
+            font: "800 46px/0.88 'Syne', sans-serif",
+            letterSpacing: '-2px',
+            color: 'var(--green)'
+          }}>{stats.memorized}</span>
         </div>
       </div>
 
-      {/* 6.4 Today's Plan */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <h2 style={{ fontSize: '22px', fontWeight: 700, letterSpacing: '-0.3px' }}>Today's Plan</h2>
+      {/* ─── Today's Plan ─── */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <h2 style={{
+          font: "700 20px/1.2 'Syne', sans-serif",
+          color: 'var(--text-primary)'
+        }}>Today's Plan</h2>
 
         {todaysTasks.length === 0 ? (
+          /* Empty State */
           <div className="glass-card" style={{ textAlign: 'center', padding: '40px 20px' }}>
-            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎉</div>
-            <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '8px' }}>All caught up!</h3>
-            <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>You have no revisions due today. Everything is perfectly on track.</p>
+            <div style={{ 
+              fontSize: '64px', 
+              marginBottom: '16px',
+              animation: 'floatBounce 2s ease-in-out infinite'
+            }}>🎉</div>
+            <h3 style={{
+              font: "700 20px/1.2 'Syne', sans-serif",
+              color: 'var(--text-primary)',
+              marginBottom: '10px'
+            }}>All caught up!</h3>
+            <p style={{
+              font: "400 13px/1.8 'JetBrains Mono', monospace",
+              color: 'var(--text-secondary)'
+            }}>
+              No revisions due today. Keep it up.
+            </p>
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
             {/* Revision Section (Day 4) */}
             {revisionTasks.length > 0 && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <h3 style={{ fontSize: '13px', fontWeight: 700, color: 'var(--warning)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  First Revision (Day 4)
-                </h3>
-                {revisionTasks.map(task => (
-                  <TaskCard key={task.topicId} task={task} onAdvance={() => onAdvance(task.topicId)} />
-                ))}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <span style={{
+                  font: "600 9px/1 'JetBrains Mono', monospace",
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  color: 'var(--orange)'
+                }}>
+                  ● First Revision · Day 4
+                </span>
+                <div className="stagger-list" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {revisionTasks.map(task => (
+                    <TaskCard key={task.topicId} task={task} onAdvance={() => onAdvance(task.topicId)} />
+                  ))}
+                </div>
               </div>
             )}
 
             {/* Re-Revision Section (Day 7) */}
             {reRevisionTasks.length > 0 && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <h3 style={{ fontSize: '13px', fontWeight: 700, color: 'var(--danger)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  Final Revision (Day 7)
-                </h3>
-                {reRevisionTasks.map(task => (
-                  <TaskCard key={task.topicId} task={task} onAdvance={() => onAdvance(task.topicId)} />
-                ))}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <span style={{
+                  font: "600 9px/1 'JetBrains Mono', monospace",
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  color: 'var(--red)'
+                }}>
+                  ● Final Revision · Day 7
+                </span>
+                <div className="stagger-list" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {reRevisionTasks.map(task => (
+                    <TaskCard key={task.topicId} task={task} onAdvance={() => onAdvance(task.topicId)} isFinal />
+                  ))}
+                </div>
               </div>
             )}
             
@@ -79,29 +145,52 @@ export default function HomeTab({ progress, onAdvance, courseData }) {
   )
 }
 
-function TaskCard({ task, onAdvance }) {
-  const isFinal = task.type === 're_revision'
+function TaskCard({ task, onAdvance, isFinal }) {
   return (
-    <div className="glass-card animate-slide" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div className="glass-card-amber" style={{ 
+      padding: '16px', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      gap: '14px' 
+    }}>
       <div>
-        <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '6px', display: 'block' }}>
+        <span style={{
+          font: "600 9px/1 'JetBrains Mono', monospace",
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          color: 'var(--text-secondary)',
+          marginBottom: '6px',
+          display: 'block'
+        }}>
           Section {task.sectionNumber}
         </span>
-        <h4 style={{ fontSize: '17px', fontWeight: 600, lineHeight: 1.4, color: 'var(--text)' }}>
+        <h4 style={{
+          font: "700 16px/1.3 'Syne', sans-serif",
+          color: 'var(--text-primary)'
+        }}>
           {task.topicTitle}
         </h4>
       </div>
       
       <button 
-        className="ios-button primary" 
+        className="tappable"
         onClick={onAdvance}
-        style={{ 
-          padding: '12px 0',
-          fontSize: '15px',
-          background: isFinal ? 'var(--success)' : 'var(--accent)'
+        style={{
+          background: isFinal ? 'var(--green)' : 'var(--amber)',
+          color: '#000000',
+          font: "600 13px/1 'JetBrains Mono', monospace",
+          letterSpacing: '0.3px',
+          padding: '14px 20px',
+          borderRadius: '14px',
+          border: 'none',
+          width: '100%',
+          boxShadow: isFinal 
+            ? 'inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 16px rgba(52,199,89,0.30)' 
+            : 'inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 16px rgba(245,158,11,0.30)',
+          cursor: 'pointer'
         }}
       >
-        {isFinal ? 'Mark Memorized ✨' : 'Mark Revised ✓'}
+        {isFinal ? 'Mark Memorized ✦' : 'Mark Revised ✓'}
       </button>
     </div>
   )

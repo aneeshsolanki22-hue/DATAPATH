@@ -1,182 +1,571 @@
+/* ═══════════════════════════════════════════════
+   DATAPATH × iOS 26 — MASTER DESIGN SYSTEM
+   ═══════════════════════════════════════════════ */
+
+/* ─── SECTION 1: COLOR SYSTEM ─── */
 :root {
-  /* iOS Apple System Colors (Dark Mode Profile) */
-  --bg: #000000;
-  --text: #FFFFFF;
-  --text-secondary: rgba(255, 255, 255, 0.6);
-  
-  --accent: #007AFF;
-  --success: #30D158;
-  --warning: #FF9F0A;
-  --danger: #FF453A;
+  /* Background Stack (darkest → lightest) */
+  --bg-void: #060606;
+  --bg-base: #0a0a0a;
+  --bg-raised: #141414;
+  --bg-elevated: #1c1c1e;
+  --bg-float: #242426;
+  --bg-glass: rgba(20, 20, 22, 0.72);
+  --bg-glass-light: rgba(255,255,255,0.04);
 
-  /* Liquid Glass Foundations */
-  --glass: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  
-  /* Safe Area Insets for iPhone Notch & Home Bar */
-  --safe-top: env(safe-area-inset-top);
-  --safe-bottom: env(safe-area-inset-bottom);
+  /* Border Stack */
+  --border-subtle: #1e1e20;
+  --border-default: #2a2a2d;
+  --border-strong: #3a3a3e;
+  --border-glass: rgba(255,255,255,0.08);
+  --border-amber: rgba(245,158,11,0.3);
 
-  /* Native Typography */
-  --font-apple: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  /* Accent — Amber */
+  --amber: #F59E0B;
+  --amber-bright: #FBB824;
+  --amber-dim: #D97706;
+  --amber-lo: rgba(245,158,11,0.10);
+  --amber-lo2: rgba(245,158,11,0.06);
+  --amber-glow: rgba(245,158,11,0.22);
+
+  /* Semantic Colours */
+  --green: #34C759;
+  --green-lo: rgba(52,199,89,0.10);
+  --blue: #0A84FF;
+  --blue-lo: rgba(10,132,255,0.10);
+  --red: #FF453A;
+  --red-lo: rgba(255,69,58,0.10);
+  --orange: #FF9F0A;
+  --orange-lo: rgba(255,159,10,0.10);
+  --purple: #BF5AF2;
+  --purple-lo: rgba(191,90,242,0.10);
+  --cyan: #32ADE6;
+  --cyan-lo: rgba(50,173,230,0.10);
+
+  /* Text Stack */
+  --text-primary: #F2F2F7;
+  --text-secondary: #8E8E93;
+  --text-tertiary: #48484A;
+  --text-quaternary: #3A3A3C;
+  --text-amber: #F59E0B;
+
+  /* ─── SECTION 2: TYPOGRAPHY ─── */
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ─── SECTION 4: BORDER RADIUS ─── */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ─── SECTION 5: SPACING ─── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --screen-px: 18px;
+  --nav-height: 80px;
+
+  /* ─── SECTION 6: EASING & DURATION ─── */
+  --ease-spring: cubic-bezier(0.22, 0.68, 0, 1.2);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-snap: cubic-bezier(0.4, 0, 0, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --dur-instant: 80ms;
+  --dur-fast: 160ms;
+  --dur-normal: 280ms;
+  --dur-slow: 400ms;
+  --dur-crawl: 600ms;
 }
 
-/* ─────────────────────────────────────────────
-    P4.2 Global Styles
-   ───────────────────────────────────────────── */
-* {
+/* ═══════════════════════════════════════════════
+   SECTION 10: GLOBAL iOS RESETS
+   ═══════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  /* Remove ugly Android/Chrome tap highlight, native iOS doesn't have it */
-  -webkit-tap-highlight-color: transparent; 
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  font-family: var(--font-apple);
-  color: var(--text);
-  background-color: var(--bg);
-  /* Deep radial gradient to give depth behind the glass */
-  background: radial-gradient(circle at 10% 10%, #1c1c1e 0%, var(--bg) 100%);
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-mono);
+  background: var(--bg-void);
+  color: var(--text-primary);
   min-height: 100vh;
-  /* Prevent pull-to-refresh bounce in PWA */
-  overscroll-behavior-y: none;
-  padding-top: var(--safe-top);
-  /* Base bottom padding (overridden later if needed, but ensures safe space) */
-  padding-bottom: var(--safe-bottom);
+  line-height: 1.8;
+  font-size: 13px;
+  font-weight: 400;
 }
 
-/* Hide scrollbars completely to feel like a native app */
 ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
   display: none;
 }
+
 * {
-  -ms-overflow-style: none; /* IE/Edge */
-  scrollbar-width: none;    /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* ─────────────────────────────────────────────
-    P4.3 Reusable Components
-   ───────────────────────────────────────────── */
-
-/* Glass Card */
-.glass-card {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  position: relative;
-}
-
-/* Status Badge */
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.status-badge.learned { background: rgba(0, 122, 255, 0.15); color: var(--accent); }
-.status-badge.revision_due { background: rgba(255, 159, 10, 0.15); color: var(--warning); }
-.status-badge.re_revision_due { background: rgba(255, 69, 58, 0.15); color: var(--danger); }
-.status-badge.memorized { background: rgba(48, 209, 88, 0.15); color: var(--success); }
-
-/* Progress Bar */
-.progress-bar-container {
-  width: 100%;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.progress-bar-fill {
-  height: 100%;
-  background: var(--success);
-  border-radius: 3px;
-  /* Smooth iOS progress fill animation */
-  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* iOS Button */
-.ios-button {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  color: var(--accent);
-  font-weight: 600;
-  font-size: 16px;
-  padding: 14px 24px;
-  border-radius: 16px;
-  width: 100%;
+button {
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  /* Smooth scale on feedback */
-  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-.ios-button:active {
-  transform: scale(0.96);
-  background: rgba(255, 255, 255, 0.15);
-}
-.ios-button.primary {
-  background: var(--accent);
-  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  background: none;
   border: none;
-}
-.ios-button.primary:active {
-  background: #005bb5;
+  font-family: inherit;
 }
 
-/* ─────────────────────────────────────────────
-    P4.4 Animation Keyframes
-   ───────────────────────────────────────────── */
+input, textarea, select {
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  font-family: inherit;
+}
 
-@keyframes fade-in {
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+button, nav, .chip, .tab, label {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 8: iOS 26 PATTERNS
+   ═══════════════════════════════════════════════ */
+
+/* 8.1 — Safe top */
+.safe-top {
+  padding-top: max(env(safe-area-inset-top, 0px), 54px);
+}
+
+/* 8.2 — Depth background (radial gradients behind glass) */
+.depth-bg {
+  background:
+    radial-gradient(ellipse 80% 40% at 20% 20%, rgba(245,158,11,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(10,132,255,0.03) 0%, transparent 60%),
+    var(--bg-base);
+}
+
+/* 8.3 — Hero gradient */
+.hero-gradient {
+  background: linear-gradient(160deg, #060606 0%, #0f0900 40%, #060606 100%);
+}
+
+/* 8.4 — Frosted separator */
+.frosted-separator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.07) 20%, rgba(255,255,255,0.07) 80%, transparent 100%);
+  border: none;
+  margin: 0;
+}
+
+/* 8.5 — iOS pull-to-refresh feel */
+html, body {
+  overscroll-behavior-y: contain;
+}
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 9: LAYOUT
+   ═══════════════════════════════════════════════ */
+
+.app-container {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.screen-content {
+  padding-left: var(--screen-px);
+  padding-right: var(--screen-px);
+  padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px) + 20px);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 6: KEYFRAME ANIMATIONS
+   ═══════════════════════════════════════════════ */
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes slide-up {
-  from { 
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to { 
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes spring-bounce {
-  0% { transform: scale(0.95); opacity: 0; }
-  40% { transform: scale(1.02); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes popDown {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-12px) scale(0.88); }
+  65% { transform: translateX(-50%) translateY(2px) scale(1.03); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }
 
-/* Utility classes to easily apply these animations to React components */
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+@keyframes amberGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0); }
+  50% { box-shadow: 0 0 20px 4px rgba(245,158,11,0.20); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Utility animation classes */
 .animate-fade {
-  animation: fade-in 0.3s ease forwards;
+  animation: fadeIn var(--dur-normal) var(--ease-smooth) both;
 }
 
 .animate-slide {
-  /* Apple's standard spring-like easing for sliding panels */
-  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUp var(--dur-slow) var(--ease-spring) both;
 }
 
 .animate-pop {
-  /* A nice bounce specifically for success checkmarks or new badge reveals */
-  animation: spring-bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation: scaleIn 350ms var(--ease-spring) both;
 }
 
+.animate-scale {
+  animation: scaleIn var(--dur-normal) var(--ease-spring) both;
+}
 
+/* ─── Tap Feedback ─── */
+.tappable {
+  transition: transform var(--dur-instant) var(--ease-snap),
+              opacity var(--dur-instant) var(--ease-snap);
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+.tappable:active {
+  transform: scale(0.95);
+  opacity: 0.85;
+}
+
+/* ─── Stagger List ─── */
+.stagger-list > * {
+  animation: slideUp var(--dur-slow) var(--ease-spring) both;
+}
+.stagger-list > *:nth-child(1) { animation-delay: 0.04s; }
+.stagger-list > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger-list > *:nth-child(3) { animation-delay: 0.12s; }
+.stagger-list > *:nth-child(4) { animation-delay: 0.16s; }
+.stagger-list > *:nth-child(5) { animation-delay: 0.20s; }
+.stagger-list > *:nth-child(6) { animation-delay: 0.24s; }
+.stagger-list > *:nth-child(7) { animation-delay: 0.28s; }
+.stagger-list > *:nth-child(8) { animation-delay: 0.32s; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 7: COMPONENT RECIPES
+   ═══════════════════════════════════════════════ */
+
+/* 7.1 — Standard Glass Card (Level 2) */
+.glass-card {
+  background: rgba(20, 20, 22, 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-top-color: rgba(255,255,255,0.11);
+  padding: var(--space-4);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 8px 32px rgba(0,0,0,0.36),
+    0 2px 8px rgba(0,0,0,0.24);
+  overflow: hidden;
+  position: relative;
+}
+
+/* 7.2 — Amber Highlighted Card */
+.glass-card-amber {
+  background: rgba(245,158,11,0.07);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(245,158,11,0.22);
+  border-top-color: rgba(245,158,11,0.32);
+  padding: var(--space-4);
+  box-shadow:
+    inset 0 1px 0 rgba(245,158,11,0.08),
+    0 4px 24px rgba(245,158,11,0.10);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Glass Navigation (Level 1) */
+.glass-nav {
+  background: rgba(10,10,12,0.88);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+/* Glass Nested (Level 3 — cards inside cards) */
+.glass-nested {
+  background: rgba(28,28,30,0.60);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius-md);
+}
+
+/* Glass Chip (Level 4 — pills, tags) */
+.glass-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: 600 9px/1 var(--font-mono);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-glass);
+}
+
+/* 7.3 — Primary Button (amber CTA) */
+.btn-primary {
+  background: var(--amber);
+  color: #000000;
+  font: 600 13px/1 var(--font-mono);
+  letter-spacing: 0.3px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  border: none;
+  width: 100%;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    0 4px 16px rgba(245,158,11,0.30);
+  transition: all var(--dur-fast) var(--ease-snap);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 2px 8px rgba(245,158,11,0.20);
+}
+
+/* 7.4 — Ghost/Outline Button */
+.btn-ghost {
+  background: transparent;
+  color: var(--amber);
+  font: 600 13px/1 var(--font-mono);
+  padding: 13px 20px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(245,158,11,0.40);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all var(--dur-fast) var(--ease-snap);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+}
+.btn-ghost:active {
+  background: rgba(245,158,11,0.08);
+  transform: scale(0.97);
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font: 600 9px/1 var(--font-mono);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.status-badge.not-started {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-glass);
+}
+.status-badge.learned {
+  background: var(--blue-lo);
+  color: var(--blue);
+  border: 1px solid rgba(10,132,255,0.22);
+}
+.status-badge.revision_due {
+  background: var(--orange-lo);
+  color: var(--orange);
+  border: 1px solid rgba(255,159,10,0.22);
+}
+.status-badge.re_revision_due {
+  background: var(--red-lo);
+  color: var(--red);
+  border: 1px solid rgba(255,69,58,0.22);
+}
+.status-badge.memorized {
+  background: var(--green-lo);
+  color: var(--green);
+  border: 1px solid rgba(52,199,89,0.22);
+}
+
+/* 7.8 — Progress Bar */
+.progress-bar-container {
+  width: 100%;
+  height: 5px;
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--amber);
+  box-shadow: 0 0 8px rgba(245,158,11,0.40);
+  transition: width var(--dur-crawl) var(--ease-spring);
+}
+
+/* 7.13 — Section Overline */
+.section-overline {
+  font: 600 9px/1 var(--font-mono);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+/* 7.11 — Toast */
+.toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: var(--amber);
+  color: #000000;
+  font: 700 12px/1 var(--font-mono);
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 24px rgba(245,158,11,0.40), 0 2px 8px rgba(0,0,0,0.30);
+  white-space: nowrap;
+  max-width: 88%;
+  text-align: center;
+  animation: popDown 320ms var(--ease-spring) both;
+}
+
+/* 7.12 — Spinner */
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 2.5px solid rgba(255,255,255,0.08);
+  border-top-color: var(--amber);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  box-shadow: 0 0 12px rgba(245,158,11,0.20);
+}
+
+/* 8.6 — Haptic Visual Feedback */
+.tap-heavy:active {
+  transform: scale(0.93);
+  transition: transform 60ms;
+}
+.tap-light:active {
+  transform: scale(0.97);
+  transition: transform 80ms;
+}
+
+/* 8.7 — iOS grouped list */
+.grouped-list {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(20,20,22,0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+.grouped-list-row {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.grouped-list-row:last-child {
+  border-bottom: none;
+}
+
+/* ─── Typography utility classes ─── */
+.type-display {
+  font: 800 46px/0.88 var(--font-display);
+  letter-spacing: -2px;
+}
+.type-title1 {
+  font: 800 28px/1.1 var(--font-display);
+  letter-spacing: -1px;
+}
+.type-title2 {
+  font: 700 20px/1.2 var(--font-display);
+}
+.type-title3 {
+  font: 700 16px/1.3 var(--font-display);
+}
+.type-body {
+  font: 400 13px/1.8 var(--font-mono);
+}
+.type-label {
+  font: 600 11px/1 var(--font-mono);
+}
+.type-caption {
+  font: 400 10px/1.6 var(--font-mono);
+}
+.type-micro {
+  font: 600 9px/1 var(--font-mono);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}

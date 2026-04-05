@@ -1,66 +1,100 @@
 import React from 'react'
 
+// Clean SVG icons (no emoji dependencies)
+const HomeIcon = ({ active }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#F59E0B' : '#8E8E93'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+    <polyline points="9 22 9 12 15 12 15 22" />
+  </svg>
+)
+
+const RoadmapIcon = ({ active }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#F59E0B' : '#8E8E93'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+    <line x1="8" y1="7" x2="16" y2="7" />
+    <line x1="8" y1="11" x2="13" y2="11" />
+  </svg>
+)
+
+const ProgressIcon = ({ active }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#F59E0B' : '#8E8E93'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="20" x2="18" y2="10" />
+    <line x1="12" y1="20" x2="12" y2="4" />
+    <line x1="6" y1="20" x2="6" y2="14" />
+  </svg>
+)
+
 export default function TabBar({ activeTab, setActiveTab }) {
   const tabs = [
-    { id: 'home', icon: '🏠', label: 'Home' },
-    { id: 'roadmap', icon: '📚', label: 'Roadmap' },
-    { id: 'progress', icon: '📊', label: 'Progress' }
+    { id: 'home', Icon: HomeIcon, label: 'Home' },
+    { id: 'roadmap', Icon: RoadmapIcon, label: 'Roadmap' },
+    { id: 'progress', Icon: ProgressIcon, label: 'Progress' }
   ]
 
   return (
-    <div style={{
+    <div className="glass-nav" style={{
       position: 'fixed',
       bottom: 0,
-      left: 0,
+      left: '50%',
+      transform: 'translateX(-50%)',
       width: '100%',
-      // iOS specific safe-area logic + base padding
-      paddingBottom: 'calc(var(--safe-bottom) + 12px)',
-      paddingTop: '12px',
-      background: 'rgba(20, 20, 22, 0.75)', // Deep iOS glass
-      backdropFilter: 'blur(25px)',
-      WebkitBackdropFilter: 'blur(25px)',
-      borderTop: '1px solid var(--glass-border)',
+      maxWidth: '430px',
       display: 'flex',
-      justifyContent: 'space-around',
-      zIndex: 100
+      zIndex: 100,
+      paddingBottom: 'env(safe-area-inset-bottom, 0px)'
     }}>
       {tabs.map(tab => {
         const isActive = activeTab === tab.id
         return (
-          <button 
+          <button
             key={tab.id}
+            id={`tab-${tab.id}`}
             onClick={() => setActiveTab(tab.id)}
+            className="tappable"
             style={{
-              background: 'transparent',
-              border: 'none',
-              color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
+              flex: 1,
+              padding: '10px 0 8px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '4px',
-              fontFamily: 'var(--font-apple)',
-              cursor: 'pointer',
-              WebkitTapHighlightColor: 'transparent',
-              transition: 'color 0.2s ease',
-              width: '70px'
+              gap: '3px',
+              position: 'relative',
+              transition: `all 160ms cubic-bezier(0.4, 0, 0, 1)`
             }}
           >
-            <span style={{ 
-              fontSize: '24px', 
-              /* Desaturate inactive icons, give active icons a slight neon pop */
-              filter: isActive ? 'drop-shadow(0 0 6px rgba(0, 122, 255, 0.4))' : 'grayscale(100%) opacity(50%)',
-              transition: 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-              transform: isActive ? 'scale(1.15) translateY(-2px)' : 'scale(1)'
+            {/* Icon */}
+            <div style={{
+              transition: 'transform 200ms cubic-bezier(0.22, 0.68, 0, 1.2)',
+              transform: isActive ? 'scale(1.1) translateY(-1px)' : 'scale(1)',
+              filter: isActive ? 'drop-shadow(0 0 6px rgba(245,158,11,0.35))' : 'none'
             }}>
-              {tab.icon}
-            </span>
-            <span style={{ 
-              fontSize: '11px', 
-              fontWeight: isActive ? 600 : 500,
-              letterSpacing: '0.2px'
+              <tab.Icon active={isActive} />
+            </div>
+
+            {/* Label */}
+            <span style={{
+              font: `${isActive ? 600 : 400} 9px/1 'JetBrains Mono', monospace`,
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              color: isActive ? '#F59E0B' : '#8E8E93',
+              transition: 'color 160ms ease'
             }}>
               {tab.label}
             </span>
+
+            {/* Active indicator pill */}
+            {isActive && (
+              <div style={{
+                width: '20px',
+                height: '3px',
+                background: '#F59E0B',
+                borderRadius: '9999px',
+                marginTop: '2px',
+                boxShadow: '0 0 8px rgba(245,158,11,0.4)',
+                animation: 'scaleIn 200ms cubic-bezier(0.22, 0.68, 0, 1.2) both'
+              }} />
+            )}
           </button>
         )
       })}

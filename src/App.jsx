@@ -18,7 +18,6 @@ export default function App() {
   }, [])
 
   // Universal handler to advance a topic's state through the 1-4-7 rule
-  // This will be passed down to all tabs so state is managed centrally here
   const handleAdvanceTopic = (topicId) => {
     setProgress(prev => advanceTopic(prev, topicId))
   }
@@ -38,14 +37,9 @@ export default function App() {
   }
 
   return (
-    <div className="app-container">
+    <div className="app-container depth-bg">
       {/* Scrollable Content Area */}
-      <div style={{
-        // Give enough bottom padding so the glass TabBar doesn't cover content
-        paddingBottom: 'calc(var(--safe-bottom) + 90px)', 
-        minHeight: '100vh',
-        width: '100%'
-      }}>
+      <div className="screen-content">
         {renderTab()}
       </div>
 
