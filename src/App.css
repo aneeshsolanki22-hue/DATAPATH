@@ -203,6 +203,7 @@ html, body {
 }
 
 .screen-content {
+  padding-top: max(env(safe-area-inset-top, 0px), 12px);
   padding-left: var(--screen-px);
   padding-right: var(--screen-px);
   padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px) + 20px);
